@@ -12,6 +12,7 @@ class MyDES():
     self.iv = iv[:8]
 
   def enc(self, plaintext):
+    plaintext = make8String(plaintext)
     des3 = DES3.new(self.key, DES3.MODE_CBC, self.iv)
     encmsg = des3.encrypt(plaintext.encode())
     return encmsg
@@ -20,11 +21,19 @@ class MyDES():
     des3 = DES3.new(self.key, DES3.MODE_CBC, self.iv)
     decmsg = des3.decrypt(ciphertext)
     return decmsg
-  
+
+def make8String(msg):
+  msglen = len(msg)
+  filler = ''
+  if msglen % 8 != 0:
+    filler = '0'*(8-msglen%8)
+  msg += filler
+  return msg
+
 def main():
   keytext = 'samsjang'
   ivtext = '1234'
-  msg = 'python3x'
+  msg = 'python3xab'
   myCipher = MyDES(keytext, ivtext)
   ciphered = myCipher.enc(msg)
   deciphered = myCipher.dec(ciphered)
