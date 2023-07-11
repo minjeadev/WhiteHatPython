@@ -33,6 +33,7 @@ def ecdsa_verify(msg, signature):
     print('Not Authentic')
 
 def main():
+  createPEM_ECDSA() # if you have key files, you don't need to run this line.
   msg = 'My name is minjae'
   signature = ecdsa_sign(msg.encode('utf-8'))
   ecdsa_verify(msg.encode('utf-8'), signature)
